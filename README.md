@@ -13,6 +13,6 @@
 
 기술 스택
 -----------------------------------------
-Eclipse
-HTML, CSS, JS, jQuery, JSP, Spring, Python, Bootstrap
+Eclipse,
+HTML, CSS, JS, jQuery, JSP, Spring, Python, Bootstrap,
 Oracle DB
