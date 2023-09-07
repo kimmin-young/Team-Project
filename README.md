@@ -35,9 +35,9 @@ CSS 작업 전반 웹 디자인 담당,
 -----------------------------------------
 FE - HTML, CSS, JavaScript, jQuery, Bootstrap
 
-Tools - Eclipse, Spring Framework, Oracle DB
-
 BE - Java, Python, Tomcat, MyBatis
+
+Tools - Eclipse, Spring Framework, Oracle DB
 
 
 설계 및 문서 작업
