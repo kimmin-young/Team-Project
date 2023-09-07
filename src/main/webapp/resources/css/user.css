@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: "a";
+	src: url("a.ttf");
+}
+
+@font-face {
+	font-family: "b";
+	src: url("b.ttf");
+}
+
+#joinTbl {
+	font-family: "b";
+	font-size: 15pt;
+	width: 80%;
+	border-color: #C3C3C3;
+}
+
+#joinTbl th {
+	width: 35%;
+	background-color: #E4E4E4;
+}
+
+#joinTbl input {
+	margin-left: 40px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#joinButton {
+	font-family: "b";
+	font-size: 15pt;
+	width: 200px;
+	height: 50px;
+	margin: auto;
+}
+
+.WelcomeBtn {
+	width: 150px;
+	margin-bottom: 20px;
+}
+
+#ToSButton {
+	font-family: "b";
+	font-size: 15pt;
+	width: 200px;
+	height: 50px;
+}
+
+.ImgInputBox::file-selector-button {
+	width: 150px;
+	height: 20px;
+	border: 1px solid rgb(77, 77, 77);
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+#InfoTbl {
+	width: 100%;
+	height: 1000px;
+	font-family: "b";
+	font-size: 18pt;
+	background-color: #F3F3F3;
+	border-radius: 10px;
+}
+
+#InfoTbl input {
+	width: 400px;
+	height: 32px;
+	font-size: 15px;
+	border-style: solid;
+	border-color: #828282;
+	border-radius: 15px;
+	padding-left: 10px;
+	background-color: white;
+}
+
+#InfoTbl th {
+	width: 30%;
+}
+
+#InfoBtn button {
+	margin-left: 10px;
+	width: 100px;
+	height: 25px;
+}

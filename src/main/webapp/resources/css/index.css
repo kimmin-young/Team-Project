@@ -1,0 +1,195 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: "a";
+	src: url("a.ttf");
+}
+
+@font-face {
+	font-family: "b";
+	src: url("b.ttf");
+}
+
+@font-face {
+	font-family: "c";
+	src: url("c.ttf");
+}
+
+body {
+	background-image: url("../img/backcolor.jpg");
+	background-size: cover;
+}
+
+#homepageTbl {
+	width: 1750px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#rogoImg {
+	width: 250px;
+	height: 250px;
+}
+
+#rogoImgS {
+	width: 120px;
+	height: 120px;
+}
+
+#rogo {
+	font-family: "a";
+	font-weight: 900;
+	font-size: 70pt;
+	display: flex;
+	align-items: center;
+}
+
+#rogoS {
+	font-family: "a";
+	font-weight: 900;
+	font-size: 30pt;
+	display: flex;
+	align-items: center;
+}
+
+#search {
+	font-family: "b";
+	font-weight: 500;
+	font-size: 20pt;
+}
+
+#searchInput {
+	width: auto;
+	height: 30px;
+}
+
+#mainTbl {
+	width: 1750px;
+	table-layout: fixed;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#contentTbl {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#BR_L {
+	position: relative;
+	left: 0px;
+	width: 100px;
+	color: black;
+	font-size: 50pt;
+	cursor: pointer;
+}
+
+#BR_R {
+	position: relative;
+	width: 100px;
+	right: 0px;
+	color: black;
+	font-size: 50pt;
+	cursor: pointer;
+}
+
+#BR_tr {
+	height: 200px;
+}
+
+#RTbl {
+	font-family: "b";
+}
+
+.Rimg {
+	width: 150px;
+	height: 150px;
+	cursor: pointer;
+}
+
+.Rimg:hover {
+	transform: scale(1.5);
+	cursor: pointer;
+}
+
+#loginTbl .input {
+	width: 100px;
+	height: 30px;
+}
+
+#NEWTitle {
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 240px;
+	margin: 5px;
+}
+
+.NewTbl {
+	border-top: 1px solid #828282;
+	border-left: 1px solid #828282;
+	border-right: 1px solid #828282;
+	border-collapse: collapse;
+	position: absolute;
+	width: 315px;
+	top: 500px;
+	background-color: #F3F3F3;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+}
+
+.NewMainTbl {
+	border-bottom: 1px solid #828282;
+	border-left: 1px solid #828282;
+	border-right: 1px solid #828282;
+	height:350px;
+	position: absolute;
+	width: 315px;
+	top: 592px;
+	background-color: #F3F3F3;
+	padding-bottom: 15px;
+}
+
+
+.goLoginBtn {
+	font-family: b;
+	border: none;
+	display: block;
+	text-align: center;
+	cursor: pointer;
+	text-transform: uppercase;
+	outline: none;
+	overflow: hidden;
+	position: relative;
+	font-weight: 700;
+	font-size: 15px;
+	padding: 17px 60px;
+	margin: 5px auto;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.20);
+}
+
+.goLoginBtn span {
+	position: relative;
+	z-index: 1;
+}
+
+.goLoginBtn:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 490%;
+	width: 140%;
+	background: #c9ff93;
+	-webkit-transition: all .5s ease-in-out;
+	transition: all .5s ease-in-out;
+	-webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+	transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.goLoginBtn:hover:after {
+	-webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+	transform: translateX(-9%) translateY(-25%) rotate(45deg);
+}

@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+body {
+	font-family: "b";
+}
+
+#tailContent, #headContent {
+	font-family: "c";
+	font-weight: 500;
+}
+
+.listNum {
+	cursor: pointer;
+	margin: -15px;
+}
+
+.PRNum {
+	width: 80px;
+}
+
+.PRImg {
+	width: 50px;
+	height: 50px;
+}
+
+.PRimg:hover {
+	transform: scale(3);
+	cursor: pointer;
+	border: 1px;
+}

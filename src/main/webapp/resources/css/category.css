@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.side-bar {
+	font-family: "b";
+	font-size: 15pt;
+	position: relative;
+}
+
+.side-bar>ul ul {
+	display: none;
+	border-radius: 20px;
+}
+
+.side-bar ul>li>a {
+	display: block;
+	color: black;
+	font-size: 15pt;
+	font-weight: bold;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+}
+
+.side-bar>ul>li {
+	position: relative;
+}
+
+.side-bar ul>li:hover>a {
+	background-color: #fff2b8;
+	border-bottom: 1px solid #808000;
+	border-radius: 20px;
+}
+
+.side-bar>ul>li:hover>ul {
+	display: block;
+	position: absolute;
+	background-color: #fff2b8;
+	top: 0;
+	left: 100%;
+	width: 100%;
+	border-radius: 10px;
+	
+}

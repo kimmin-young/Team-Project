@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.prj.p_recipe.PRMapper">
+
+	<select id="getAllPRCount" resultType="java.lang.Integer">
+		select count(*) from p_recipe 
+	</select>
+	
+	
+	<select id="getSearchPRCount" resultType="java.lang.Integer" parameterType="com.team.prj.p_recipe.PRSelector">
+		select count(*) from p_recipe
+		where ${rcp} like '%'||#{search}||'%'
+		order by num desc
+	</select>
+
+
+	<select id="getPRecipe" resultType="com.team.prj.p_recipe.PRecipe" parameterType="com.team.prj.p_recipe.PRSelector">
+		select * 
+		from (
+			select rownum as rn, num, ATT_FILE_NO_MAIN, RCP_PAT, RCP_NM, views
+			from ( select * from p_recipe 
+				   where ${rcp} like '%'||#{search}||'%' 
+				   order by num desc ) 
+				   )
+		where rn &gt;= #{start} and rn &lt;= #{end}
+	</select>
+	
+	<update id="updatePRecipe" parameterType="com.team.prj.p_recipe.PRecipe">
+		update p_recipe set views = (views+1) where num = ${num}
+	</update>
+	
+	<select id="getPRecipeContent" resultType="com.team.prj.p_recipe.PRecipe" parameterType="com.team.prj.p_recipe.PRecipe">
+		select * from p_recipe where num = ${num}
+	</select>
+
+</mapper>

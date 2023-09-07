@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.prj.cs.CSMapper">
+
+	<!-- 해당 회원의 전체 글 갯수 -->
+	<select id="getAllCspCount" resultType="java.lang.Integer" parameterType="com.team.prj.user.User">
+		select count(*) from cs where cs_writer = #{u_id}
+	</select>
+	
+	<!-- 검색어에 해당하는 글 갯수 -->
+	<select id="getSearchCSPCount" resultType="java.lang.Integer" parameterType="com.team.prj.cs.CSSelector">
+		select count(*) from cs
+		where ${searchType} like '%'||#{searchCs}||'%' and cs_writer = #{id} and cs_category like '%'||#{categoryType}||'%' 
+		order by cs_num desc
+	</select>
+	
+	<!-- 글 가져오기 -->
+	<select id="getCsp"
+		resultType="com.team.prj.cs.CSPost" parameterType="com.team.prj.cs.CSSelector">
+		select *
+		from (
+				select rownum as rn, cs_num, cs_category, cs_title, cs_writer, cs_views, cs_when, (select count(*) from csr where csr_cs_num = cs_num) cs_reply 
+				from (
+					select * from cs where  ${searchType} like '%'||#{searchCs}||'%' and cs_writer = #{id} and cs_category like '%'||#{categoryType}||'%'
+					order by cs_num desc
+					)
+				)
+		where rn &gt;= #{start} and rn &lt;= #{end}
+	</select>
+	
+	<!-- 글 작성 -->
+	<insert id="writeCsp" parameterType="com.team.prj.cs.CSPost">
+		insert into cs values(cs_seq.nextval, #{cs_category}, #{cs_title}, #{cs_text}, #{cs_writer}, 0, sysdate)
+	</insert>
+	
+	<!-- 컨텐츠 페이지 조회수 증가 -->
+	<update id="updateCsViews" parameterType="com.team.prj.cs.CSPost">
+		update cs set cs_views = (cs_views+1) where cs_num = ${cs_num}
+	</update>
+	
+	<!-- 컨텐츠 페이지 데이터 가져오기 -->
+	<select id="getCsContent" parameterType="com.team.prj.cs.CSPost" resultType="com.team.prj.cs.CSPost">
+		select * from cs where cs_num = ${cs_num}
+	</select>
+	
+	<!-- 컨텐츠 페이지 댓글 가져오기 -->
+	<select id="getCsReply" parameterType="com.team.prj.cs.CSReply" resultType="com.team.prj.cs.CSReply">
+		select * from csr where csr_cs_num = ${csr_cs_num} order by csr_when asc
+	</select>
+	
+	<!-- 컨텐츠 페이지 댓글 갯수 가져오기 -->
+	<select id="getCsReplyCount" parameterType="com.team.prj.cs.CSReply" resultType="java.lang.Integer">
+		select count(*) from csr where csr_cs_num = ${csr_cs_num}
+	</select>
+	
+	<!-- 컨텐츠 페이지 댓글 쓴이 정보 가져오기 -->
+	<select id="getCsReplyWriter" parameterType="com.team.prj.cs.CSReply" resultType="com.team.prj.user.User">
+		select u.u_id, u.u_nickname, u.u_photo, u.u_role
+		from users u, csr c
+		where c.csr_writer = #{csr_writer}
+		and c.csr_writer = u.u_id
+	</select>
+	
+	<!-- 컨텐츠 페이지 수정 -->
+	<update id="updateCs" parameterType="com.team.prj.cs.CSPost">
+		update cs set cs_category = #{cs_category}, cs_title = #{cs_title}, cs_text = #{cs_text} where cs_num = ${cs_num}
+	</update>
+	
+	<!-- 컨텐츠 페이지 삭제 -->
+	<delete id="removeCS" parameterType="com.team.prj.cs.CSPost">
+		delete from cs where cs_num = ${cs_num}
+	</delete>
+	
+	<!-- 컨텐츠 페이지 댓글 등록 -->
+	<insert id="wrtieCsReply" parameterType="com.team.prj.cs.CSReply">
+		insert into csr values(csr_seq.nextval, #{csr_text}, #{csr_writer}, sysdate, ${csr_cs_num})
+	</insert>
+	
+	<!-- 컨텐츠 페이지 댓글 삭제 -->
+	<delete id="deleteCsReply" parameterType="com.team.prj.cs.CSReply">
+		delete from csr where csr_num = ${csr_num}
+	</delete>
+	
+	
+	<!-- 관 리 자  -->
+	<!-- 모든 회원의 전체 글 갯수 -->
+	<select id="getAllCspCountManage" resultType="java.lang.Integer">
+		select count(*) from cs
+	</select>
+
+	<!-- 검색어에 해당하는 글 갯수 -->
+	<select id="getSearchCSPCountManage" resultType="java.lang.Integer" parameterType="com.team.prj.cs.CSSelector">
+		select count(*) from cs
+		where ${searchType} like '%'||#{searchCs}||'%' and cs_category like '%'||#{categoryType}||'%' 
+		order by cs_num desc
+	</select>
+	
+	<!-- 글 가져오기 -->
+	<select id="getCspManage"
+		resultType="com.team.prj.cs.CSPost" parameterType="com.team.prj.cs.CSSelector">
+		select *
+		from (
+				select rownum as rn, cs_num, cs_category, cs_title, cs_writer, cs_views, cs_when, (select count(*) from csr where csr_cs_num = cs_num) cs_reply 
+				from (
+					select * from cs where  ${searchType} like '%'||#{searchCs}||'%' and cs_category like '%'||#{categoryType}||'%'
+					order by cs_num desc
+					)
+				)
+		where rn &gt;= #{start} and rn &lt;= #{end}
+	</select>
+
+	<!-- 컨텐츠 페이지 댓글 삭제 -->
+	<delete id="deleteCsReplyManage" parameterType="com.team.prj.cs.CSReply">
+		delete from csr where csr_num = ${csr_num}
+	</delete>
+	
+	
+</mapper>

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.prj.i_recipe.IRMapper">
+
+	<select id="bestRecipe" resultType="com.team.prj.i_recipe.Recipe">
+select * from (
+		select rownum as rn, r_no, r_title,	r_category, r_date,	r_text, r_photo, r_ended, r_writer, r_seen,	r_star_avg, r_example from (
+		select * from i_recipe
+		order by r_star_avg desc))
+		where rn &gt;= 1 and rn &lt;= 5
+</select>
+	<select id="seenList" resultType="com.team.prj.i_recipe.Recipe">
+select * from (
+		select rownum as rn, r_no, r_title,	r_category, r_date,	r_text, r_photo, r_ended, r_writer, r_seen,	r_star_avg, r_example from (
+		select * from i_recipe
+		order by r_seen desc))
+		where rn &gt;= 1 and rn &lt;= 10
+</select>
+	<select id="newList" resultType="com.team.prj.i_recipe.Recipe">
+select * from (
+		select rownum as rn, r_no, r_title,	r_category, r_date,	r_text, r_photo, r_ended, r_writer, r_seen,	r_star_avg, r_example from (
+		select * from i_recipe
+		order by r_no desc))
+		where rn &gt;= 1 and rn &lt;= 10
+</select>
+	
+	
+	<!-- -->
+	<select id="getAllRcpCount" resultType="java.lang.Integer">
+		select count(*) from
+		i_recipe
+	</select>
+
+	<select id="getSearchRcpCount"
+		parameterType="com.team.prj.PageSelector"
+		resultType="java.lang.Integer">
+		select count(*) from i_recipe
+		where ${rcp} like
+		'%'||#{search}||'%'
+		order by r_no desc
+	</select>
+
+	<select id="getCatRcpCount" resultType="java.lang.Integer"
+		parameterType="com.team.prj.PageSelector">
+		select count(*) from
+		i_recipe
+		where r_category =
+		#{category}
+	</select>
+
+	<select id="getSearchCatRcpCount"
+		parameterType="com.team.prj.PageSelector"
+		resultType="java.lang.Integer">
+		select count(*) from i_recipe
+		where ${rcp} like
+		'%'||#{search}||'%'
+		and r_category = #{category}
+		order by r_no desc
+	</select>
+
+
+
+	<select id="getRcpCountById" resultType="java.lang.Integer"
+		parameterType="com.team.prj.PageSelector">
+		select count(*) from i_recipe
+		where r_writer = #{id}
+	</select>
+
+	<select id="getSearchRcpCountById"
+		parameterType="com.team.prj.PageSelector"
+		resultType="java.lang.Integer">
+		select count(*) from i_recipe
+		where ${rcp} like
+		'%'||#{search}||'%' and
+		r_writer = #{id}
+	</select>
+
+	<select id="getYourRevCount"
+		parameterType="com.team.prj.UR_Relation"
+		resultType="java.lang.Integer">
+		select count(*) from review
+		where rv_rcp = #{recipe} and
+		rv_writer = #{user}
+	</select>
+
+	<select id="getHeadPhoto"
+		resultType="com.team.prj.i_recipe.Recipe"
+		parameterType="com.team.prj.i_recipe.Recipe">
+		select r_photo from i_recipe
+		where r_no = #{r_no}
+	</select>
+
+	<select id="getTailPhoto"
+		parameterType="com.team.prj.i_recipe.Recipe"
+		resultType="com.team.prj.i_recipe.Tail">
+		select t_photo from tail
+		where t_head = #{r_no}
+	</select>
+
+	<!-- =================== Create ================== -->
+	<insert id="writeRcp"
+		parameterType="com.team.prj.i_recipe.Recipe">
+insert into i_recipe values(i_recipe_seq.nextval+2000,
+		#{r_title}, #{r_category}, sysdate, #{r_text}, #{r_photo}, default,
+		default, #{r_writer}, default, default)
+</insert>
+
+	<insert id="writeTail"
+		parameterType="com.team.prj.i_recipe.Tail">
+insert into tail values(tail_seq.nextval,
+		sysdate,
+		#{t_text}, #{t_photo}, #{t_head}, 'X')
+</insert>
+
+	<insert id="writeRev"
+		parameterType="com.team.prj.i_recipe.Review">
+		insert into review values(review_seq.nextval,
+		#{rv_star}, #{rv_text}, #{rv_rcp}, #{rv_writer})
+	</insert>
+
+	<!-- =================== Read ===================== -->
+
+	<select id="getRcp" parameterType="com.team.prj.PageSelector"
+		resultType="com.team.prj.i_recipe.Recipe">
+select * from (
+		select rownum as rn, r_no, r_title,
+		r_category, r_date,
+		r_text, r_photo, r_ended, r_writer, r_seen,
+		r_star_avg, r_example from (
+		select *
+		from i_recipe
+		where ${rcp} like
+		'%'||#{search}||'%'
+		order by ${sort} desc))
+		where rn &gt;= #{start} and
+		rn &lt;= #{end}
+</select>
+
+	<select id="getRcpByCat"
+		parameterType="com.team.prj.PageSelector"
+		resultType="com.team.prj.i_recipe.Recipe">
+select * from (
+		select rownum as rn, r_no, r_title,
+		r_category, r_date,
+		r_text, r_photo, r_ended, r_writer, r_seen,
+		r_star_avg, r_example from (
+		select *
+		from i_recipe
+		where ${rcp} like
+		'%'||#{search}||'%' and r_category = #{category}
+		order by ${sort}
+		desc))
+		where rn &gt;= #{start} and rn &lt;= #{end}
+</select>
+
+	<select id="getRcpById"
+		parameterType="com.team.prj.PageSelector"
+		resultType="com.team.prj.i_recipe.Recipe">
+select * from (
+		select rownum as rn, r_no, r_title,
+		r_category, r_date,
+		r_text, r_photo, r_ended, r_writer, r_seen,
+		r_star_avg, r_example from (
+		select *
+		from i_recipe
+		where ${rcp} like
+		'%'||#{search}||'%' and r_writer = #{id}
+		order by ${sort}
+		desc))
+		where rn
+		&gt;= #{start} and rn &lt;= #{end}
+</select>
+
+	<select id="getNickById" parameterType="com.team.prj.user.User"
+		resultType="string">
+		select u_nickname from users
+		where u_id = #{u_id}
+	</select>
+
+	<select id="getRev" parameterType="com.team.prj.i_recipe.Recipe"
+		resultType="com.team.prj.i_recipe.Review">
+		select * from review
+		where rv_rcp = #{r_no} order by rv_no
+	</select>
+
+	<select id="getHeadNo"
+		parameterType="com.team.prj.i_recipe.Recipe"
+		resultType="com.team.prj.i_recipe.Recipe">
+		select r_no from i_recipe
+		where r_title = #{r_title} and
+		r_writer = #{r_writer}
+		order by r_date desc
+	</select>
+
+	<select id="getHead"
+		parameterType="com.team.prj.i_recipe.Recipe"
+		resultType="com.team.prj.i_recipe.Recipe">
+		select * from i_recipe
+		where r_no = #{r_no}
+	</select>
+
+	<select id="getTail"
+		parameterType="com.team.prj.i_recipe.Recipe"
+		resultType="com.team.prj.i_recipe.Tail">
+		select * from tail
+		where t_head = #{r_no} order by t_no
+	</select>
+
+	<select id="getOneTail"
+		parameterType="com.team.prj.i_recipe.Tail"
+		resultType="com.team.prj.i_recipe.Tail">
+		select * from tail
+		where t_no = #{t_no}
+	</select>
+
+	<select id="getAllRevCount"
+		parameterType="com.team.prj.i_recipe.Recipe"
+		resultType="java.lang.Integer">
+		select count(*) from review
+		where rv_rcp = #{r_no}
+	</select>
+
+	<select id="getStarAvg"
+		parameterType="com.team.prj.i_recipe.Recipe" resultType="bigdecimal">
+		select
+		avg(rv_star) from review
+		where rv_rcp = #{r_no}
+	</select>
+
+	<!-- ===================== Update ======================= -->
+
+	<update id="updateRcp"
+		parameterType="com.team.prj.i_recipe.Recipe">
+		update i_recipe
+		set
+		r_title = #{r_title},
+		r_category =
+		#{r_category},
+		r_text = #{r_text},
+		r_photo =
+		#{r_photo}
+		where r_no =
+		#{r_no}
+	</update>
+
+	<update id="endRcp" parameterType="com.team.prj.i_recipe.Recipe">
+		update i_recipe set r_ended =
+		'O' where r_no = #{r_no}
+	</update>
+
+	<update id="updateSeen"
+		parameterType="com.team.prj.i_recipe.Recipe">
+		update i_recipe set r_seen = r_seen + 1
+		where r_no =
+		#{r_no}
+	</update>
+
+	<update id="updateStar"
+		parameterType="com.team.prj.i_recipe.Recipe">
+		update i_recipe set r_star_avg = #{r_star_avg}
+		where r_no
+		= #{r_no}
+	</update>
+
+	<update id="updateTail"
+		parameterType="com.team.prj.i_recipe.Tail">
+		update tail
+		set
+		t_text = #{t_text},
+		t_photo = #{t_photo}
+		where t_no = #{t_no}
+	</update>
+
+	<update id="updateRev"
+		parameterType="com.team.prj.i_recipe.Review">
+		update review
+		set
+		rv_star = #{rv_star},
+		rv_text =
+		#{rv_text}
+		where rv_no = #{rv_no}
+	</update>
+
+	<!-- ===================== Delete ======================= -->
+
+	<delete id="deleteRcp"
+		parameterType="com.team.prj.i_recipe.Recipe">
+		delete from i_recipe where r_no = #{r_no}
+	</delete>
+
+	<delete id="deleteTail"
+		parameterType="com.team.prj.i_recipe.Tail">
+		delete from tail where t_no = #{t_no}
+	</delete>
+
+	<delete id="deleteRev"
+		parameterType="com.team.prj.i_recipe.Review">
+		delete from review where rv_no = #{rv_no}
+	</delete>
+</mapper>

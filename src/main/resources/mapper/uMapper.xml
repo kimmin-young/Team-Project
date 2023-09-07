@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.prj.user.UMapper">
+	
+	<!-- 회원가입 -->
+	<insert id="join" parameterType="com.team.prj.user.User">
+		insert into users values(#{u_id}, #{u_pw}, #{u_email}, #{u_nickname}, #{u_name}, #{u_phone}, #{u_photo}, #{u_addr}, #{u_role})
+	</insert>
+	
+	<!-- 회원가입 아이디 중복검사 -->
+	<select id="idCheck" parameterType="com.team.prj.user.User" resultType="com.team.prj.user.User">
+		select u_id from users where u_id = #{u_id}	
+	</select>
+	
+	<!-- 회원가입 이메일 중복검사 -->
+	<select id="emailCheck" parameterType="com.team.prj.user.User" resultType="com.team.prj.user.User">
+		select u_email from users where u_email = #{u_email}	
+	</select>
+	
+	<!-- 회원가입 닉네임 중복검사 -->
+	<select id="nicknameCheck" parameterType="com.team.prj.user.User" resultType="com.team.prj.user.User">
+		select u_nickname from users where u_nickname = #{u_nickname}	
+	</select>
+	
+	<!-- 회원가입 전화번호 중복검사 -->
+	<select id="phoneCheck" parameterType="com.team.prj.user.User" resultType="com.team.prj.user.User">
+		select u_phone from users where u_phone = #{u_phone}	
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="login" parameterType="com.team.prj.user.User" resultType="com.team.prj.user.User">
+		select * from users where u_id = #{u_id}
+	</select>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="remove" parameterType="com.team.prj.user.User">
+		delete from users where u_id = #{u_id} and u_pw = #{u_pw}
+	</delete>
+	
+	<!-- 회원정보수정 -->
+	<update id="update" parameterType="com.team.prj.user.User">
+		update users set u_email = #{u_email}, u_nickname = #{u_nickname}, 
+						u_phone = #{u_phone}, u_photo = #{u_photo}, u_addr = #{u_addr}, u_role = #{u_role}
+		where u_id = #{u_id} and u_pw = #{u_pw}
+	</update>
+	
+	<!-- 비밀번호수정 -->
+	<update id="pwUpdate" parameterType="com.team.prj.user.User">
+		update users set u_pw = #{u_pw}
+		where u_id = #{u_id}
+	</update>
+	
+	<!-- 회원정보수정 이메일 중복검사 -->
+	<select id="emailCheckUpdate" parameterType="com.team.prj.user.User" resultType="com.team.prj.user.User">
+		select u_email from users
+		where u_email = #{u_email} and u_email not in #{update_email}		
+	</select>
+	
+	<!-- 회원정보수정 닉네임 중복검사 -->
+	<select id="nicknameCheckUpdate" parameterType="com.team.prj.user.User" resultType="com.team.prj.user.User">
+		select u_nickname from users
+		where u_nickname = #{u_nickname} and u_nickname not in #{update_nickname}		
+	</select>
+	
+	<!-- 회원정보수정 전화번호 중복검사 -->
+	<select id="phoneCheckUpdate" parameterType="com.team.prj.user.User" resultType="com.team.prj.user.User">
+		select u_phone from users
+		where u_phone = #{u_phone} and u_phone not in #{update_phone}	
+	</select>
+
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="com.team.prj.user.User" resultType="com.team.prj.user.User">
+		select * from users where u_email = #{u_email}
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPw" parameterType="com.team.prj.user.User" resultType="com.team.prj.user.User">
+		select * from users where u_id = #{u_id}
+	</select>
+
+
+</mapper>

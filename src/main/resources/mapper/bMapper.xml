@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.prj.bookmark.BMapper">
+	
+	<!-- 북마크한 게시글 전체 개수 -->
+	<select id="getBmkCount" parameterType="com.team.prj.user.User" resultType="java.lang.Integer">
+		select count(*) from bookmark
+		where b_user = #{u_id}
+	</select>
+	
+	<!-- 북마크 중 검색한 게시글 개수 -->
+	<select id="getSearchBmkCount" resultType="java.lang.Integer" parameterType="com.team.prj.PageSelector">
+select count(b.b_rcp) 
+		from i_recipe r, bookmark b
+		where r.${rcp} like '%'||#{search}||'%' and r.r_no = b.b_rcp
+</select>
+	
+	<!-- 북마크했는지 판별 -->
+	<select id="bookmarked" parameterType="com.team.prj.bookmark.Bookmark" resultType="java.lang.Integer">
+		select count(*) from bookmark
+		where b_user = #{b_user} and b_rcp = #{b_rcp}
+	</select>
+	
+	<!-- 북마크 추가 -->
+	<insert id="addBmk" parameterType="com.team.prj.bookmark.Bookmark">
+		insert into bookmark values(bookmark_seq.nextval,
+		#{b_user}, #{b_rcp})
+	</insert>
+	
+	<!-- 북마크 보기 -->
+	<select id="getBmk" parameterType="com.team.prj.PageSelector" resultType="com.team.prj.i_recipe.Recipe">
+select * from (
+		select rownum as rn, r_no, r_title, r_category, r_date, r_text, r_photo, r_ended, r_writer, r_seen, r_star_avg, r_example from (
+		select * from bookmark b, i_recipe r 
+		where r.${rcp} like '%'||'${search}'||'%'  and b.b_user = '${id}' and b.b_rcp = r.r_no
+		order by r.${sort} desc)) 
+		where rn &gt;= '${start}' and rn &lt;= '${end}'
+</select>
+	
+	<!-- 북마크 삭제 -->
+	<delete id="deleteBmk" parameterType="com.team.prj.bookmark.Bookmark">
+		delete from bookmark 
+		where b_user = #{b_user} and b_rcp = #{b_rcp}
+	</delete>
+	
+	<!-- 해당 회원 북마크 전체 삭제(회원탈퇴시) -->
+</mapper>
