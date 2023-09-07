@@ -33,8 +33,13 @@ CSS 작업 전반 웹 디자인 담당,
 
 기술 스택
 -----------------------------------------
-HTML, CSS, JavaScript, jQuery, Bootstrap
-Eclipse, Spring Framework, Oracle DB
-Java, Python, Tomcat, MyBatis
+FE - HTML, CSS, JavaScript, jQuery, Bootstrap
 
-Crawling, Open API
+Tools - Eclipse, Spring Framework, Oracle DB
+
+BE - Java, Python, Tomcat, MyBatis
+
+
+설계 및 문서 작업
+-----------------------------------------
+https://www.notion.so/8b27aec981c9496ebd8a5533c55135e4?v=2c0ed445a89e47e48cf793977f3a595f&pvs=4
