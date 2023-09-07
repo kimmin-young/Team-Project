@@ -42,4 +42,4 @@ Tools - Eclipse, Spring Framework, Oracle DB
 
 설계 및 문서 작업
 -----------------------------------------
-https://www.notion.so/8b27aec981c9496ebd8a5533c55135e4?v=2c0ed445a89e47e48cf793977f3a595f&pvs=4
+https://www.notion.so/57c36fe339594af6be482d670b16c9a7?pvs=4
