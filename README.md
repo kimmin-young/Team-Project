@@ -2,8 +2,10 @@
 
 프로젝트 소개 - 해먹자
 -----------------------------------------
-물가 상승과 비싼 배달비로 인한 식비 부담을 해결하기 위해
-사용 간편한 레시피 공간의 "해먹자"를 기획하게 되었습니다.
+1인 가구와 핵가족의 증가로 인해 요리보단 간편한 배달 및 외식을 많이 선택하는데요
+그러나 치솟는 배달비와 부담되는 외식 비용으로 인해 배보다 배꼽이 더 커지는 상황이 되어
+식비를 아낄 겸 음식을 직접 만들고 레시피를 공유하며 서로 평가할 수 있는 사이트를 구상하게 되었습니다.
+
 
 
 팀원 소개
@@ -13,6 +15,8 @@
 
 기술 스택
 -----------------------------------------
-Eclipse,
-HTML, CSS, JS, jQuery, JSP, Spring, Python, Bootstrap,
-Oracle DB
+HTML, CSS, JavaScript, jQuery, Bootstrap
+Eclipse, Spring Framework, Oracle DB
+Java, Python, Tomcat, MyBatis
+
+Crawling, Open API
