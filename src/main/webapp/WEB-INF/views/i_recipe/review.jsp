@@ -65,10 +65,12 @@ textarea {
 	background-color: #D8D8D8;
 	width: 100px;
 	height: 30px;
+	cursor: pointer;
 }
 </style>
 </head>
 <body>
+
 	<!-- 레시피 제목 / 별점 평균 / 리뷰 수 -->
 	<div align="center">
 		<h1>${h.r_title }</h1>
@@ -77,34 +79,33 @@ textarea {
 	<table>
 		<tr>
 			<td>
-				<h1 style="margin-left:10px; margin-bottom: 10px;">리뷰</h1>
+				<h1 style="margin-left: 10px; margin-bottom: 10px;">리뷰</h1>
 			</td>
 		</tr>
 		<tr>
-			<td style="padding-left:10px; color: orange; font-size: 15pt;">
-				<c:set var="star" value="${h.r_star_avg }" />
-			<c:choose>
-				<c:when test="${star == 5 }">
+			<td style="padding-left: 10px; color: orange; font-size: 15pt;">
+				<c:set var="star" value="${h.r_star_avg }" /> <c:choose>
+					<c:when test="${star == 5 }">
 							&#9733;&#9733;&#9733;&#9733;&#9733;(${h.r_star_avg })
 						</c:when>
-				<c:when test="${star >= 4 }">
+					<c:when test="${star >= 4 }">
 							&#9733;&#9733;&#9733;&#9733;(${h.r_star_avg })
 						</c:when>
-				<c:when test="${star >= 3 }">
+					<c:when test="${star >= 3 }">
 							&#9733;&#9733;&#9733;(${h.r_star_avg })
 						</c:when>
-				<c:when test="${star >= 2 }">
+					<c:when test="${star >= 2 }">
 							&#9733;&#9733;(${h.r_star_avg })
 						</c:when>
-				<c:otherwise>
+					<c:otherwise>
 							&#9733;(${h.r_star_avg })
 						</c:otherwise>
-			</c:choose>
+				</c:choose>
 			</td>
 			<td style="color: orange; font-size: 15pt;">리뷰 ${h.r_rev_cnt }개</td>
 		</tr>
 	</table>
-	
+
 
 	<!-- 리뷰 작성 - 리뷰를 이미 달지 않았을 경우에만 작성 가능 -->
 	<c:if
@@ -126,18 +127,18 @@ textarea {
 						<input type="radio" id="1-star" name="rv_star" value="1" /> <label
 						for="1-star" class="star">&#9733;</label></td>
 				</tr>
-				<tr style="border-top:none; border-bottom: none;">
+				<tr style="border-top: none; border-bottom: none;">
 					<td><textarea name="rv_text"></textarea></td>
 				</tr>
 				<tr>
-					<td align="right" style="padding: 5px;">
-						<button class="reBtn">등록</button>
-					</td>
+					<td align="right" style="padding: 5px;"><input class="reBtn"
+						type="button" value="뒤로가기" onclick="history.back()">
+						<button class="reBtn">등록</button></td>
 				</tr>
 			</table>
 		</form>
 	</c:if>
-	
+
 	<hr>
 
 	<c:if test="${ph == false }">
