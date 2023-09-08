@@ -7,7 +7,7 @@
 <title>i_recipe/writeHead.jsp</title>
 <style type="text/css">
 #writeInfo input {
-	width: 300px;
+	width: 1007px;
 	height: 30px;
 }
 
@@ -19,16 +19,16 @@
 #writeContent textarea {
 	font-size: 10pt;
 	font-weight: 500;
-	width : 900px;
-	height: 120px;
+	width : 1110px;
+	height: 150px;
 	resize: none;
 	border: none;
 }
 
 #writeContent button {
 	position: absolute;
-	right: 220px;
-	
+	right: 15px;
+	width: 100px;
 }
 </style>
 </head>
@@ -39,7 +39,7 @@
 			name="from" value="${param.from }" type="hidden">
 		<table style="margin: 10px;">
 			<tr>
-				<td width="900px">
+				<td width="100%">
 					<table id="writeInfo">
 						<tr>
 							<td><select name="r_category">
