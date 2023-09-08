@@ -292,7 +292,7 @@
 	<!-- 리뷰 테이블 -->
 	<table>
 		<tr>
-			<td><a style="color: black; text-align: right;"
+			<td><a style="font-family:sans-serif; font-size:12pt; text-align: right;"
 				href="i_recipe.review?r_no=${h.r_no }">조회 ${h.r_seen } 리뷰
 					(${h.r_rev_cnt })</a></td>
 		</tr>
